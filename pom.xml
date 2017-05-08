@@ -1,0 +1,77 @@
+<project
+		xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		<modelVersion>4.0.0</modelVersion>
+		<groupId>com.yw</groupId>
+		<artifactId>SSECI</artifactId>
+		<packaging>war</packaging>
+		<version>0.0.1-SNAPSHOT</version>
+		<name>SSECI Maven Webapp</name>
+		<parent>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>1.4.3.RELEASE</version>
+		</parent>
+		<url>http://maven.apache.org</url>
+		<dependencies>
+				<dependency>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+						<version>4.12</version>
+						<scope>test</scope>
+				</dependency>
+				<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-web</artifactId>
+				</dependency>
+				<!-- Add freemarker template support -->
+				<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-freemarker</artifactId>
+				</dependency>
+				<!-- Add JPA support -->
+				<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-jpa</artifactId>
+				</dependency>
+				<!-- Add Hikari Connection Pooling support -->
+				<dependency>
+						<groupId>com.zaxxer</groupId>
+						<artifactId>HikariCP</artifactId>
+				</dependency>
+				<!-- Add MySQL database support [for running with PRODUCTION profile] -->
+				<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+				</dependency>
+				<dependency>
+						<groupId>org.apache.commons</groupId>
+						<artifactId>commons-lang3</artifactId>
+						<version>3.5</version>
+				</dependency>
+				<!--Jackson Dependency -->
+				<dependency>
+						<groupId>com.fasterxml.jackson.core</groupId>
+						<artifactId>jackson-annotations</artifactId>
+						<version>2.5.4</version>
+				</dependency>
+
+
+				<dependency>
+						<groupId>com.fasterxml.jackson.core</groupId>
+						<artifactId>jackson-core</artifactId>
+						<version>2.5.4</version>
+				</dependency>
+
+
+				<dependency>
+						<groupId>com.fasterxml.jackson.core</groupId>
+						<artifactId>jackson-databind</artifactId>
+						<version>2.5.5</version>
+				</dependency>
+		</dependencies>
+		<build>
+				<finalName>SSECI</finalName>
+		</build>
+</project>
