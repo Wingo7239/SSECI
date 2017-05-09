@@ -73,9 +73,15 @@ public class QuoteController {
 	}
 
 	@RequestMapping(value = "/quote/download", method = RequestMethod.GET)
-	public String getQuote(HttpServletRequest request, HttpServletResponse response) {
-		List<Quote> quoteList = quoteRepository.findByDateInterval(Integer.parseInt(request.getParameter("start")), Integer.parseInt(request.getParameter("end")));
-		
+	@ResponseBody
+	public void getQuote(HttpServletRequest request, HttpServletResponse response) {
+		int start = Integer.parseInt(request.getParameter("start"));
+		int end = Integer.parseInt(request.getParameter("end"));
+		List<Quote> quoteList = quoteRepository.findByDateInterval(start, end);
+		response.setHeader("content-type", "application/octet-stream");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment;filename=" + start + "-" + end + ".xls");
+
 		try {
 			WritableWorkbook book = Workbook.createWorkbook(response.getOutputStream());
 			WritableSheet sheet = book.createSheet("Sheet1", 0);
@@ -83,30 +89,28 @@ public class QuoteController {
 			for (int i = 0; i < TABLE_HEADER.length; i++) {
 				sheet.addCell(new Label(i, 0, TABLE_HEADER[i]));
 			}
+			int row = 1;
 			for (Quote quote : quoteList) {
-				int row = 1;
-				for (int i = 0; i < TABLE_HEADER.length; i++) {
-					sheet.addCell(new Label(i, row, quote.getDate() + ""));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getOpen())));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getClose())));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getHigh())));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getLow())));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getVolume())));
-					sheet.addCell(new Label(i, row, round2Decimal(quote.getTurnover())));
-				}
+				sheet.addCell(new Label(0, row, quote.getDate() + ""));
+				sheet.addCell(new Label(1, row, round2Decimal(quote.getOpen())));
+				sheet.addCell(new Label(2, row, round2Decimal(quote.getClose())));
+				sheet.addCell(new Label(3, row, round2Decimal(quote.getHigh())));
+				sheet.addCell(new Label(4, row, round2Decimal(quote.getLow())));
+				sheet.addCell(new Label(5, row, round2Decimal(quote.getVolume())));
+				sheet.addCell(new Label(6, row, round2Decimal(quote.getTurnover())));
+				row++;
 			}
-			
+
 			book.write();
+			book.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-				
-		return "success";
 	}
-	
-	private static String round2Decimal(Double num){
-		return String.format("%.02f", num);
+
+	private static String round2Decimal(Double num) {
+		return num+"";
 	}
 
 }
