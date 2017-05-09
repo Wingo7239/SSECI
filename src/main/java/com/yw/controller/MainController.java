@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yw.exception.InvalidDateException;
+
 @Controller
 public class MainController {
 final static Logger logger = Logger.getLogger(MainController.class);
@@ -21,6 +23,12 @@ final static Logger logger = Logger.getLogger(MainController.class);
   public ModelAndView quotePage() {
 	  logger.info("Inside quote controller");
     return new ModelAndView("quote");
+  }
+  
+  @RequestMapping("/sb")
+  public void sb() {
+	  throw new InvalidDateException();
+   
   }
 
 }
