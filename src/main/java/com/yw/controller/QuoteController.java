@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yw.exception.InvalidDateException;
 import com.yw.model.Quote;
 import com.yw.repository.QuoteRepository;
 
@@ -75,8 +76,18 @@ public class QuoteController {
 	@RequestMapping(value = "/quote/download", method = RequestMethod.GET)
 	@ResponseBody
 	public void getQuote(HttpServletRequest request, HttpServletResponse response) {
-		int start = Integer.parseInt(request.getParameter("start"));
-		int end = Integer.parseInt(request.getParameter("end"));
+		int start = 0;
+		int end = 0;
+
+		try {
+			start = Integer.parseInt(request.getParameter("start"));
+			end = Integer.parseInt(request.getParameter("end"));
+			if (start < 19901220 || start > 20170505 || end < 19901220 || end > 20170505)
+				throw new InvalidDateException("Please enter a valid date");
+		} catch (NumberFormatException e) {
+			throw new InvalidDateException("Invalid Date Format");
+		}
+
 		List<Quote> quoteList = quoteRepository.findByDateInterval(start, end);
 		response.setHeader("content-type", "application/octet-stream");
 		response.setContentType("application/octet-stream");
@@ -110,7 +121,7 @@ public class QuoteController {
 	}
 
 	private static String round2Decimal(Double num) {
-		return num+"";
+		return num + "";
 	}
 
 }

@@ -8,19 +8,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
-final static Logger logger = Logger.getLogger(MainController.class);
-  @RequestMapping("/")
-  @ResponseBody
-  public String index() {
-	  logger.info("Inside Main controller");
-    return "Proudly handcrafted by " +
-        "<a href='http://yingguowu.com'>YingguoWu</a> :)";
-  }
-  
-  @RequestMapping("/quote")
-  public ModelAndView quotePage() {
-	  logger.info("Inside quote controller");
-    return new ModelAndView("quote");
-  }
+	final static Logger logger = Logger.getLogger(MainController.class);
+
+	@RequestMapping("/")
+	@ResponseBody
+	public String index() {
+		logger.info("Inside Main controller");
+		return "Proudly handcrafted by " + "<a href='http://yingguowu.com'>YingguoWu</a> :)";
+	}
+
+	@RequestMapping("/quote")
+	public ModelAndView quotePage() {
+		logger.info("Inside quote controller");
+		return new ModelAndView("quote");
+	}
 
 }

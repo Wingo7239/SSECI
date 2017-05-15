@@ -69,6 +69,12 @@ public class JpaConfiguration {
     additionalProperties.put(
         "hibernate.hbm2ddl.auto", 
         env.getProperty("hibernate.hbm2ddl.auto"));
+    additionalProperties.put(
+            "hibernate.validationQuery", 
+            env.getProperty("hibernate.validationQuery"));
+    additionalProperties.put(
+            "hibernate.testOnBorrow", 
+            env.getProperty("hibernate.testOnBorrow"));
     entityManagerFactory.setJpaProperties(additionalProperties);
     
     return entityManagerFactory;

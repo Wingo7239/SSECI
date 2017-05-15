@@ -24,7 +24,7 @@ public class ProductExceptionHandler  extends ResponseEntityExceptionHandler{
 	 public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
 	        ModelAndView mav = new ModelAndView();
 	        mav.addObject("exception", e);
-	        mav.addObject("url", req.getRequestURL());
+	        mav.addObject("message", e.getMessage());
 	        mav.setViewName(DEFAULT_ERROR_VIEW);
 	        return mav;
 	    }
